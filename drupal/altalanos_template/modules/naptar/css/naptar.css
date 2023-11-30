@@ -1,0 +1,43 @@
+div#naptar-cim {
+    padding-bottom: 10px;
+}
+div#naptar-baloldali-linkek{
+    display: inline;
+    float: left;
+}
+div#naptar-jobboldali-linkek {
+    display: inline;
+    float: right;
+}
+div#naptar-clear {
+    display: inline;
+    clear: both;
+}
+a.naptar-baloldali-linkek {
+    margin-right: 10px;
+}
+a.naptar-jobboldali-linkek {
+    margin-left: 10px;
+}
+.naptar-tablazat-e,
+.naptar-tablazat-h {
+    table-layout: fixed;
+}
+td.naptar-honap-cella-mult,
+td.naptar-honap-cella-jovo {
+    vertical-align: top;
+    height: 60px;
+    background-color: #f5f5f5;
+}
+td.naptar-honap-cella-aktualis {
+    vertical-align: top;
+    height: 60px;
+}
+td.naptar-honap-cella-ma {
+    vertical-align: top;
+    height: 60px;
+    background-color: beige;
+}
+td.naptar-het-cella-ma {
+    background-color: beige;
+}

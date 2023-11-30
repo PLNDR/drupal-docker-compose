@@ -1,0 +1,5 @@
+# Schema for the configuration files of the altalanos_template theme.
+
+altalanos_template.settings:
+  type: theme_settings
+  label: 'altalanos_template settings'

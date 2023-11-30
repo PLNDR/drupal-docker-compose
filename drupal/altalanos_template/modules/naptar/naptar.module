@@ -1,0 +1,51 @@
+<?php
+
+/**
+* Implementing hook_theme().
+*/
+function naptar_theme($existing, $type, $theme, $path) {
+    return array(
+        'esemenyek' => array(
+            'variables' => array(
+                'naptar' => array(
+                    'mod' => 'h',
+                    'ev' => 1970,
+                    'honap' => 1,
+                    'honap_kiirva' => 'Jan',
+                    'nap' => 1,
+                    'cim' => '',
+                    'linkek' => array(
+                        'nap' => '',
+                        'het' => '',
+                        'honap' => '',
+                        'ma' => '',
+                        'elozo' => '',
+                        'kovetkezo' => ''
+                    ),
+                    'hetek' => array(array(array(
+                        'ev' => 1970,
+                        'honap' => 1,
+                        'honap_kiirva' => '',
+                        'nap' => 1,
+                        'nap_link' => '',
+                        'het_napja' => 1,
+                        'het_napja_kiirva' => '',
+                        'tipus' => 'mult',
+                        'esemenyek' => array(array(
+                            'idopont' => '',
+                            'cim' => '',
+                            'link' => ''
+                        ))
+                    )))
+                )
+            )
+        )
+    );
+}
+
+/**
+* Implementing hook_page_attachments().
+*/
+function naptar_page_attachments(array &$page) {
+    $page['#attached']['library'][] = 'naptar/naptar_css';
+}

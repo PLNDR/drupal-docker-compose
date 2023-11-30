@@ -1,0 +1,9 @@
+naptar.esemenyek:
+  path: '/naptar/{ido}/{mod}'
+  defaults:
+    _controller: '\Drupal\naptar\Controller\NaptarController::page'
+    _title: 'Eseménynaptár'
+    ido: 'now'
+    mod: 'h'
+  requirements:
+    _permission: 'access content'

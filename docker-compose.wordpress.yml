@@ -1,0 +1,83 @@
+version: "3"
+
+services:
+  database:
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./database:/var/lib/mysql
+
+  phpmyadmin:
+    depends_on:
+      - database
+    image: phpmyadmin/phpmyadmin:${PHPMYADMIN_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin
+    restart: always
+    ports:
+      - "${PHPMYADMIN_PORT}:80"
+    environment:
+      PMA_HOST: database
+      PMA_PORT: "3306"
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+
+  wordpress:
+    depends_on:
+      - database
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - WORDPRESS_VERSION=${WORDPRESS_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}
+    restart: always
+    ports:
+      - "${WORDPRESS_PORT}:80"
+    environment:
+      WORDPRESS_DB_HOST: ${DATABASE_HOST}:3306
+      WORDPRESS_DB_USER: ${DATABASE_USER}
+      WORDPRESS_DB_PASSWORD: ${DATABASE_PASSWORD}
+      WORDPRESS_DB_NAME: ${DATABASE_NAME}
+    volumes:
+      - ${WORDPRESS_DATA_DIR}:/var/www/html:rw
+
+  wp-cli:
+    build:
+      context: .
+      dockerfile: wpcli.Dockerfile
+    container_name: ${COMPOSE_PROJECT_NAME}_wpcli
+    depends_on:
+    - wordpress
+    volumes:
+      - ${WORDPRESS_DATA_DIR:-./wordpress}:/var/www/html
+      - ./setup-wp.sh:/usr/local/bin/setup-wp.sh
+    user: "33"
+    command: sh -c "/wait && /usr/local/bin/setup-wp.sh"
+    environment:
+      - WAIT_HOSTS=${COMPOSE_PROJECT_NAME}_mysql:3306, ${COMPOSE_PROJECT_NAME}:80
+      - WAIT_BEFORE=${WAIT_BEFORE:-30}
+      - WAIT_AFTER=${WAIT_AFTER:-15}
+      - WAIT_TIMEOUT=${WAIT_TIMEOUT:-300}
+      - WAIT_SLEEP_INTERVAL=${WAIT_SLEEP_INTERVAL:-30}
+      - WAIT_HOST_CONNECT_TIMEOUT=${WAIT_HOST_CONNECT_TIMEOUT:-30}
+      # Wordpress configuration -----------------------------
+      - WORDPRESS_LOCALE=${WORDPRESS_LOCALE}
+      - WORDPRESS_THEME=${WORDPRESS_THEME}
+      - WORDPRESS_CHILD_THEME=${WORDPRESS_CHILD_THEME}
+      - WORDPRESS_PLUGINS=${WORDPRESS_PLUGINS}
+      - WORDPRESS_DB_NAME=${DATABASE_NAME}
+      - WORDPRESS_DB_HOST=${DATABASE_HOST}
+      - WORDPRESS_DB_USER=${DATABASE_USER}
+      - WORDPRESS_DB_PASSWORD=${DATABASE_PASSWORD}
+      - WORDPRESS_WEBSITE_TITLE=${WORDPRESS_WEBSITE_TITLE}
+      - WORDPRESS_WEBSITE_URL=${WORDPRESS_WEBSITE_URL}
+      - WORDPRESS_WEBSITE_URL_WITHOUT_HTTP=${WORDPRESS_WEBSITE_URL_WITHOUT_HTTP}
+      - WORDPRESS_WEBSITE_POST_URL_STRUCTURE=${WORDPRESS_WEBSITE_POST_URL_STRUCTURE:-"/blog/%postname%/"}
+      - WORDPRESS_ADMIN_USER=${WORDPRESS_ADMIN_USER}
+      - WORDPRESS_ADMIN_PASSWORD=${WORDPRESS_ADMIN_PASSWORD}
+      - WORDPRESS_ADMIN_EMAIL=${WORDPRESS_ADMIN_EMAIL}

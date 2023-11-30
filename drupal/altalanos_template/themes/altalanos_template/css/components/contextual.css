@@ -1,0 +1,9 @@
+/**
+ * @file
+ * Contextual links styles for altalanos_template.
+ */
+
+.contextual-links a {
+  border-bottom: none;
+  text-shadow: 0 0 0;
+}

@@ -1,0 +1,52 @@
+/**
+ * @file
+ * Visual styles for the site branding block in altalanos_template.
+ */
+
+.site-branding__logo {
+  display: inline-block;
+  margin-right: 1em; /* LTR */
+  margin-bottom: 0.286em;
+  border-bottom: 0;
+}
+.site-branding__logo img {
+  height: 80px;
+  max-width: 300px;
+}
+[dir="rtl"] .site-branding__logo {
+  margin-right: 0;
+  margin-left: 1em;
+}
+.site-branding__text {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+@media all and (min-width: 461px) {
+  .site-branding__text {
+    padding-bottom: 1.857em;
+  }
+}
+
+@media all and (min-width: 901px) {
+  .site-branding__text {
+    padding-bottom: 1.286em 0 0;
+  }
+}
+.site-branding__name {
+  font-size: 2.6em;
+  line-height: 1;
+}
+
+@media all and (min-width: 901px) {
+  .site-branding__name {
+    font-size: 2.821em;
+  }
+}
+.site-branding__slogan {
+  margin-top: 7px;
+  word-spacing: 0.1em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.929em;
+  font-style: italic;
+}

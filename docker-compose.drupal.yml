@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  drupal:
+    # image: drupal:${DRUPAL_VERSION}
+    build:
+      dockerfile: ./drupal.Dockerfile
+      args:
+        - DRUPAL_THEME_LOCATION=${DRUPAL_THEME_LOCATION}
+    container_name: ${DRUPAL_COMPOSE_PROJECT_NAME}_drupal
+    ports:
+      - "${DRUPAL_PORT}:80"
+    volumes:
+      - /var/www/html/modules
+      - /var/www/html/profiles
+      - /var/www/html/themes
+      - /var/www/html/sites
+    #   - ./setup-drupal.sh:/usr/local/bin/setup-drupal.sh
+    user: "33"
+    # command: sh -c "/usr/local/bin/setup-drupal.sh"
+    depends_on:
+      - mysql
+    restart: always
+
+  mysql:
+    image: mysql:${DRUPAL_MYSQL_VERSION}
+    container_name: ${DRUPAL_COMPOSE_PROJECT_NAME}_mysql
+    environment:
+      MYSQL_DATABASE: ${DRUPAL_MYSQL_DATABASE}
+      MYSQL_USER: ${DRUPAL_MYSQL_USER}
+      MYSQL_PASSWORD: ${DRUPAL_MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DRUPAL_MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${DRUPAL_MYSQL_PORT}:3306"
+    volumes:
+      - drupal_db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  drupal_db_data:

@@ -1,0 +1,100 @@
+<?php
+
+use Drupal\node\Entity\Node;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_link_alter().
+ * Hide titles from all links and adds aria-label if link opens on new page.
+ */
+
+function akadalymentesites_link_alter(&$variables) {
+    unset($variables['options']['attributes']['title']);
+    if ($variables['options']['attributes']['target'] == '_blank') {
+        $variables['options']['attributes']['aria-label'] =  $variables['text'] . ', külső oldalon megnyíló hivatkozás';
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ * At the top of each form if there are required fields, then *(asterisk) sign is explained in hungarian.
+ */
+function akadalymentesites_form_alter(&$form, &$form_state, $form_id) {
+    $is_required = drupal_form_has_required($form);
+    if($is_required){
+        $form['explanation'] = array (
+            '#type' => 'hidden',
+            '#title' => 'explanation',
+            '#prefix' => t('<div class="form-required-info" aria-label="A csillag karakter kötelezően kitöltendő mezőt jelöl."><span class="form-required"></span> A csillag karakter kötelezően kitöltendő mezőt jelöl</div>'),
+            '#weight' => -15,
+        );
+    }
+}
+
+/**
+ * Helper method for akadalymentesites_form_alter
+ * Returns TRUE if there are required fields on form.
+ */
+function drupal_form_has_required ($form) {
+    if (isset($form['#required']) && $form['#required']) {
+        return TRUE;
+    }
+    foreach (Element::children($form) as $key) {
+        if (drupal_form_has_required($form[$key])) {
+            return TRUE;
+        }
+    }
+}
+
+/**
+ * Implements hook_file_presave().
+ * If file is uploaded shows a status message.
+ */
+function akadalymentesites_file_presave(Drupal\file\FileInterface $file) {
+    \Drupal::messenger()->addMessage(t('Sikeres fájlfeltöltés!'), 'status');
+}
+
+/**
+ * Implements hook_file_delete().
+ * If file is removed shows a status message.
+ */
+function akadalymentesites_file_delete(Drupal\file\FileInterface $file) {
+    \Drupal::messenger()->addMessage(t('Sikeres fájleltávolítás!'), 'status');
+}
+
+/**
+ * Implements hook_preprocess_status_messages().
+ * Makes every status message reachable by TAB.
+ */
+function akadalymentesites_preprocess_status_messages(&$variables) {
+    $variables['attributes']['tabindex'] = 0;
+    $variables['attributes']['autofocus'] = true;
+    $variables['attached']['js'] = array('$(".messages").focus()' => array( 'type' => 'inline'));
+    $variables['attributes']['aria-live'] = "polite";
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ * Changes the default title (Picture) of image upload widget.
+ */
+function akadalymentesites_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+    // If this is an image field type of instance
+    if ($context['widget'] instanceof \Drupal\image\Plugin\Field\FieldWidget\ImageWidget) {
+      $element['#attributes']['aria-label'] = "Töltsön fel egy képet, ami a felhasználó virtuális arca lesz a weboldalon."; // TODO: not working...
+      $element['#title'] = "Töltsön fel egy képet";
+      //print_r($element);
+    }
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ * In case of the calendar, don't show any path segments.
+ */
+function akadalymentesites_preprocess_breadcrumb(&$variables) {
+    if (count($variables['breadcrumb']) == 3 && $variables['breadcrumb'][1]['text'] == 'Eseménynaptár') {
+        unset($variables['breadcrumb'][2]);
+        unset($variables['breadcrumb'][1]);
+    }
+}
+   

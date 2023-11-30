@@ -1,0 +1,68 @@
+/**
+ * @file
+ * altalanos_template layout styling.
+ */
+
+/**
+ * Container
+ */
+.layout-container {
+  box-sizing: border-box;
+  max-width: 860px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media all and (min-width: 851px) {
+  .layout-container {
+    max-width: 1290px;
+  }
+}
+
+/**
+ * Main
+ */
+.layout-main-wrapper {
+  min-height: 300px;
+}
+.layout-main {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+a[target="_blank"],
+.filter-help a[target="_blank"]
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 40px 0 0;
+}
+
+a[target="_blank"]::before {
+  content:"";
+  position: absolute;
+  display: flex;
+  width: 15px;
+  height: 15px;
+  background: url("../images/ext-link.svg") no-repeat center;
+  right: -40px;
+  opacity: .4;
+}
+
+.toolbar .toolbar-tray-horizontal .toolbar-menu .menu-item--expanded.level-1 .toolbar-handle {
+  left: 100px;
+}
+
+.toolbar .toolbar-tray-horizontal .toolbar-menu .menu-item--expanded :not(.level-1) .toolbar-handle {
+  left: unset;
+}
+
+.toolbar .toolbar-tray-horizontal .toolbar-menu .menu-item--expanded.level-1 .toolbar-box {
+  width: calc(100% + 40px);
+}
+
+.toolbar .toolbar-tray-horizontal .toolbar-menu .menu-item--expanded :not(.level-1) .toolbar-box {
+  width: 100%;
+}

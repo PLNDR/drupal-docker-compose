@@ -1,0 +1,5 @@
+naptar_css:
+  version: 1.0
+  css:
+    theme:
+      css/naptar.css: {}

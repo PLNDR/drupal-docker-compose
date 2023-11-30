@@ -1,0 +1,27 @@
+/**
+ * @file
+ * Toolbar module overrides for altalanos_template.
+ */
+
+/* .toolbar a {
+  border-bottom: none;
+} */
+.adminimal-admin-toolbar .toolbar a
+{
+  border: 3px solid transparent;
+}
+
+.adminimal-admin-toolbar .toolbar a:hover
+{
+  border: 3px solid black;
+}
+
+.adminimal-admin-toolbar .toolbar .toolbar-tray-vertical .menu-item,
+.adminimal-admin-toolbar .toolbar .toolbar-tray-vertical .menu-item + .menu-item {
+  border-bottom: 1px solid;
+}
+
+.toolbar .toolbar-tray-vertical.is-active,
+body.toolbar-fixed .toolbar .toolbar-tray-vertical{
+  max-height: calc(100vh - 45px);
+}

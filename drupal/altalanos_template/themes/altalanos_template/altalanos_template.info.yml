@@ -1,0 +1,85 @@
+name: Általános akadálymentesített template
+type: theme
+base theme: false
+description: "Általános akadálymentesített template."
+core_version_requirement: ^9
+libraries:
+    - altalanos_template/classy.base
+    - altalanos_template/classy.messages
+    - altalanos_template/global-scripts
+    - core/normalize
+    - altalanos_template/global-styling
+
+libraries-extend:
+    core/drupal.dialog:
+        - altalanos_template/classy.dialog
+    core/drupal.dropbutton:
+        - altalanos_template/classy.dropbutton
+    core/drupal.progress:
+        - altalanos_template/classy.progress
+    file/drupal.file:
+        - altalanos_template/classy.file
+    filter/drupal.filter.admin:
+        - altalanos_template/filter
+    filter/drupal.filter:
+        - altalanos_template/filter
+    media/media_embed_ckeditor_theme:
+        - altalanos_template/classy.media_embed_ckeditor_theme
+    media_library/view:
+        - altalanos_template/classy.media_library
+    media_library/widget:
+        - altalanos_template/classy.media_library
+    tour/tour:
+        - altalanos_template/tour
+    user/drupal.user:
+        - altalanos_template/user
+
+libraries-override:
+    toolbar/toolbar:
+        js:
+            js/toolbar.js: js/toolbar.js
+            # Models.
+            js/models/MenuModel.js: js/models/MenuModel.js
+            js/models/ToolbarModel.js: js/models/ToolbarModel.js
+            # Views.
+            js/views/BodyVisualView.js: js/views/BodyVisualView.js
+            js/views/MenuVisualView.js: js/views/MenuVisualView.js
+            js/views/ToolbarAuralView.js: js/views/ToolbarAuralView.js
+            js/views/ToolbarVisualView.js: js/views/ToolbarVisualView.js
+    toolbar/toolbar.menu:
+        js:
+            js/toolbar.menu.js: js/toolbar.menu.js
+        css:
+            state:
+                css/toolbar.menu.css: css/components/toolbar.menu.css
+    text/drupal.text:
+        js:
+            text.js: js/text.js
+
+ckeditor_stylesheets:
+    - css/base/elements.css
+    - css/components/captions.css
+    - css/components/table.css
+    - css/components/text-formatted.css
+    - css/classy/components/media-embed-error.css
+
+regions:
+    header: Header
+    primary_menu: "Primary menu"
+    secondary_menu: "Secondary menu"
+    page_top: "Page top"
+    page_bottom: "Page bottom"
+    highlighted: Highlighted
+    featured_top: "Featured top"
+    breadcrumb: Breadcrumb
+    content: Content
+    sidebar_first: "Sidebar first"
+    sidebar_second: "Sidebar second"
+    featured_bottom_first: "Featured bottom first"
+    featured_bottom_second: "Featured bottom second"
+    featured_bottom_third: "Featured bottom third"
+    footer_first: "Footer first"
+    footer_second: "Footer second"
+    footer_third: "Footer third"
+    footer_fourth: "Footer fourth"
+    footer_fifth: "Footer fifth"

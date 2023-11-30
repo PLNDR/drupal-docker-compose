@@ -1,0 +1,5 @@
+name: Naptár
+description: Naptár nézet az Esemény tartalom számára.
+base modul: false
+type: module
+core_version_requirement: ^9

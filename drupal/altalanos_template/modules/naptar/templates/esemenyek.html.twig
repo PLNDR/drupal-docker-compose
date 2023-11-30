@@ -1,0 +1,100 @@
+<h1>{{ cim }}</h1>
+<div id="naptar-cim">
+    <h2>{{ naptar.cim }}</h2>
+</div>
+<div id="naptar-baloldali-linkek">
+    {% if naptar.mod == 'n' %}
+        <a class="naptar-baloldali-linkek" href={{ naptar.linkek.elozo }} aria-label="Az előző napra való navigálás">Vissza</a>
+        <a class="naptar-baloldali-linkek" href={{ naptar.linkek.kovetkezo }} aria-label="A következő napra való navigálás">Tovább</a>
+    {% elseif naptar.mod == 'e' %}
+        <a class="naptar-baloldali-linkek" href={{ naptar.linkek.elozo }} aria-label="Az előző hétre való navigálás">Vissza</a>
+        <a class="naptar-baloldali-linkek" href={{ naptar.linkek.kovetkezo }} aria-label="A következő hétre való navigálás">Tovább</a>
+    {% else %}
+        <a class="naptar-baloldali-linkek" href={{ naptar.linkek.elozo }} aria-label="Az előző hónapra való navigálás">Vissza</a>
+        <a class="naptar-baloldali-linkek" href={{ naptar.linkek.kovetkezo }} aria-label="A következő hónapra való navigálás">Tovább</a>
+    {% endif %}
+    <a class="naptar-baloldali-linkek" href={{ naptar.linkek.ma }} aria-label="A mai napra való navigálás">Ma</a>
+</div>
+<div id="naptar-jobboldali-linkek">
+    <a class="naptar-jobboldali-linkek" href={{ naptar.linkek.honap }} aria-label="Hónap nézet">Hónap</a>
+    <a class="naptar-jobboldali-linkek" href={{ naptar.linkek.het }} aria-label="Hét nézet">Hét</a>
+    <a class="naptar-jobboldali-linkek" href={{ naptar.linkek.nap }} aria-label="Nap nézet">Nap</a>
+</div>
+<div id="naptar-clear"></div>
+<table class="naptar-tablazat-{{ naptar.mod }}">
+    {% if naptar.mod == 'n' %}
+        <thead>
+            <tr>
+                <th>Órák</th>
+                <th>{{ naptar.hetek[0][0].het_napja_kiirva }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in 0..23 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>
+                        {% if naptar.hetek[0][0].esemenyek[i] %}
+                            {% for esemeny in naptar.hetek[0][0].esemenyek[i] %}
+                                <p>{{ esemeny.idopont }} <a href="{{ esemeny.link }}">{{ esemeny.cim }}</a></p>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% elseif naptar.mod == 'e' %}
+        <thead>
+            <tr>
+                <th>Órák</th>
+                {% for i in 0..6 %}
+                    <th>{{ naptar.hetek[0][i].honap_kiirva }} {{ naptar.hetek[0][i].nap }}, {{ naptar.hetek[0][i].het_napja_kiirva }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in 0..23 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    {% for j in 0..6 %}
+                        <td class="naptar-het-cella-{{ naptar.hetek[0][j].tipus }}">
+                            {% if naptar.hetek[0][j].esemenyek[i] %}
+                                {% for esemeny in naptar.hetek[0][j].esemenyek[i] %}
+                                    <p>{{ esemeny.idopont }} <a href="{{ esemeny.link }}">{{ esemeny.cim }}</a></p>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <thead>
+            <tr>
+                {% for i in 0..6 %}
+                    <th>{{ naptar.hetek[0][i].het_napja_kiirva }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in 0..5 %}
+                <tr>
+                    {% for j in 0..6 %}
+                        <td class="naptar-honap-cella-{{ naptar.hetek[i][j].tipus }}">
+                            <div><a href="{{ naptar.hetek[i][j].nap_link }}" aria-label="{{ naptar.hetek[i][j].honap_kiirva }} {{ naptar.hetek[i][j].nap }}, Nap nézetre való navigálás">{{ naptar.hetek[i][j].nap }}</a></div>
+                            {% if naptar.hetek[i][j].esemenyek|length > 0 %}
+                                <div>
+                                {% for esemenytomb in naptar.hetek[i][j].esemenyek %}
+                                    {% for esemeny in esemenytomb %}
+                                        <p>{{ esemeny.idopont }} <a href="{{ esemeny.link }}">{{ esemeny.cim }}</a></p>
+                                    {% endfor %}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% endif %}
+</table>

@@ -1,0 +1,196 @@
+/**
+ * @file
+ * Styles for altalanos_template's tables.
+ */
+
+table {
+  width: 100%;
+  margin: 10px 0;
+  border-spacing: 0;
+  border: 0;
+  border-collapse: collapse;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+  font-size: 0.857em;
+}
+table table {
+  font-size: 1em;
+}
+tr {
+  padding: 0.1em 0.6em;
+  border-bottom: 1px solid #ccc;
+  background: #efefef;
+  background: rgba(0, 0, 0, 0.063);
+}
+thead > tr {
+  border-bottom: 1px solid #000;
+}
+tr.odd {
+  background: #e4e4e4;
+  background: rgba(0, 0, 0, 0.105);
+}
+table tr th {
+  border-bottom-style: none;
+  background: #757575;
+  background: rgba(0, 0, 0, 0.51);
+}
+table tr th,
+table tr th a,
+table tr th a:hover,
+table tr th a:focus {
+  color: #fff;
+  font-weight: bold;
+}
+table tbody tr th {
+  vertical-align: top;
+}
+tr td,
+tr th {
+  padding: 4px 9px;
+  text-align: left; /* LTR */
+  border: 1px solid #fff;
+}
+.tabledrag-handle:hover,
+.tabledrag-handle {
+  border: none;
+  display: none;
+}
+[dir="rtl"] tr td,
+[dir="rtl"] tr th {
+  text-align: right;
+}
+table div.field-plugin-settings-edit-wrapper {
+  min-width: 20px;
+}
+
+.mobile-label
+{
+  display: none;
+}
+
+table#edit-files td {
+  word-break: break-all;
+}
+
+/**
+ * Responsive tables.
+ */
+@media screen and (max-width: 63em) { /* 920px to update vallue */ 
+  th.priority-low,
+  td.priority-low {
+    display: none;
+  }
+
+  tr td, tr th {
+    padding: 4px 1px;
+  }
+
+  table.views-table,
+  table.permissions,
+  table.responsive-enabled,
+  table#blocks,
+  table.sticky-header,
+  table#taxonomy {
+    font-size: 0.720em;
+  }
+
+  table.permissions input,
+  table.field-ui-overview input {
+    font-size: 0.720em;
+  }
+}
+
+ /* 600px */
+@media screen and (max-width: 37.5em) {
+  th.priority-low,
+  td.priority-low,
+  th.priority-medium,
+  td.priority-medium {
+    display: none;
+  }
+
+  tr td, tr th {
+    padding: 4px 1px;
+  }
+
+  table.views-table,
+  table.permissions,
+  table.responsive-enabled,
+  table#blocks,
+  table#taxonomy {
+    font-size: 0.520em;
+  }
+
+  table.permissions input,
+  table.field-ui-overview input {
+    font-size: 0.520em;
+  }
+  
+}
+
+/* 480px */
+@media screen and (max-width: 30em) { 
+  .responsive-enabled,
+  .responsive-enabled thead,
+  .responsive-enabled tbody,
+  .responsive-enabled th,
+  .responsive-enabled td,
+  .responsive-enabled tr:not(.region-populated)
+ {
+   display: block;
+    width: 100%;
+  }
+
+  table.views-table,
+  table.permissions,
+  table.responsive-enabled,
+  table#blocks,
+  table#taxonomy 
+  table.permissions input,
+  table.field-ui-overview input,
+  .field-ui-overview .field-plugin-summary {
+    font-size: 1em;
+  }
+  
+  .responsive-enabled tr{
+    padding: 0;
+    border-bottom: 2px solid #cdcdcd;
+  }
+
+  .responsive-enabled td
+  {
+    box-sizing: border-box;
+    border: none;
+    padding: 15px;
+    border-bottom: 1px solid #fff;
+  }
+  
+  .responsive-enabled td:nth-child(n+5)  {
+      border: none;
+  }
+
+  .responsive-enabled thead,
+  table.sticky-header
+  {
+    display: none!important;
+    
+  }
+
+  .field-ui-overview .field-plugin-summary,
+  .field-ui-overview .field-plugin-settings-edit-wrapper,
+  .field-ui-overview .field-plugin-settings-edit
+  {
+    float: none;
+  }
+
+  .mobile-label{
+    display: block;
+    font-weight: 700;
+  }
+
+   input[type="text"],
+   select
+  {
+    width: 100%;
+  }
+
+}

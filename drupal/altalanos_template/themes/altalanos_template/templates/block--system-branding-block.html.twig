@@ -1,0 +1,41 @@
+{% extends "block.html.twig" %}
+{#
+/**
+ * @file
+ * altalanos_template's theme implementation for a branding block.
+ *
+ * Each branding element variable (logo, name, slogan) is only available if
+ * enabled in the block configuration.
+ *
+ * Available variables:
+ * - site_logo: Logo for site as defined in Appearance or theme settings.
+ * - site_name: Name for site as defined in Site information settings.
+ * - site_slogan: Slogan for site as defined in Site information settings.
+ */
+#}
+{% set attributes = attributes.addClass('site-branding') %}
+{% block content %}
+  {% if site_logo or site_name %}
+    <a class="link_change" href="{{ path('<front>') }}" rel="home" tabindex="-1" aria-hidden="true">
+      {% if site_logo %}
+        <div class="site-branding__logo">
+          <img src="{{ site_logo }}" />
+        </div>
+      {% endif %}
+      {% if site_name %}
+        <div class="site-branding__text">
+          <div class="site-branding__name">
+            <h1 class="site_name_change">{{ site_name }}</h1>
+          </div>
+          {% if site_slogan %}
+            <div class="site-branding__slogan">{{ site_slogan }}</div>
+          {% endif %}
+        </div>
+      {% elseif site_slogan %}
+        <div class="site-branding__text">
+          <div class="site-branding__slogan">{{ site_slogan }}</div>
+        </div>
+      {% endif %}
+    </a>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,5 @@
+name: Akadálymentesítést elősegítő modul
+description: A modul célja akadálymentesíteni a Drupal core moduljait.
+base modul: false
+type: module
+core_version_requirement: ^9
